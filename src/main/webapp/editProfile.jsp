@@ -1,68 +1,85 @@
+<%@ page import="uz.inha.chatting_app.entity.User" %>
 <%@ page import="java.util.UUID" %><%--
   Created by IntelliJ IDEA.
   User: orazboyevolmosbek
-  Date: 21/04/24
-  Time: 22:13
+  Date: 22/04/24
+  Time: 15:29
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Registration</title>
+    <title>Edit profile</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1710781944947-7cd4a381499f?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Replace with your background image URL */
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            max-width: 600px;
+            margin: 50px auto;
             padding: 20px;
+            background-color: #fff;
             border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            color: #333;
+
+        .form-group {
+            margin-bottom: 20px;
         }
-        input[type="text"],
-        input[type="password"],
-        input[type="file"] {
-            padding: 10px;
-            margin: 5px;
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
             width: 100%;
-            box-sizing: border-box;
+            padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
         }
-        input[type="submit"],
-        input[type="button"] {
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
             padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+            margin: 0 10px;
+            background-color: #4CAF50;
+            color: #fff;
             border: none;
             border-radius: 5px;
-            margin: 10px;
-            transition: background-color 0.3s ease;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
         }
-        input[type="submit"]:hover,
-        input[type="button"]:hover {
-            background-color: #ddd;
+
+        .btn-cancel {
+            background-color: #f44336;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
+<%
+    Object o = session.getAttribute("currentUser");
+    User user = new User();
+    if (o!=null) {
+        user = (User) o;
+    }
+    Object currentFile = session.getAttribute("currentFile");
+%>
 <div class="container">
-    <%
-        Object currentFile = session.getAttribute("currentFile");
-    %>
-    <h1>Registration</h1>
+    <h2>Edit Profile</h2>
     <form enctype="multipart/form-data" action="${pageContext.request.contextPath}/file" method="post">
         <label>
             <%if (currentFile == null) {%>
@@ -72,27 +89,38 @@
             <%}%>
             <input class="d-none" type="file" name="photo">
         </label>
-        <input type="hidden" name="lastUrl" value="/register.jsp">
+        <input type="hidden" name="lastUrl" value="/editProfile.jsp">
         <button class="btn btn-success text-white">Save file</button>
     </form>
-    <form action="${pageContext.request.contextPath}/user/registration" method="post">
-        <label>
-            <input type="text" name="firstname" placeholder="First Name" required><br>
-        </label>
-        <label>
-            <input type="text" name="lastname" placeholder="Last Name" required><br>
-        </label>
-        <label>
-            <input type="text" name="phone" placeholder="Phone Number" required><br>
-        </label>
-        <label>
-            <input type="password" name="password" placeholder="Password" required><br>
-        </label>
-        <label>
-            <input type="password" name="repeat-password" placeholder="Repeat password" required><br>
-        </label>
-        <input type="submit" value="Register">
-        <a type="button" class="btn" href="${pageContext.request.contextPath}/registration/cancel">Cancel</a>
+    <form action="${pageContext.request.contextPath}/user/editProfile" method="post">
+        <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input value="<%=user.getFirstName()%>" type="text" id="first-name" name="firstname" required>
+        </div>
+        <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input value="<%=user.getLastName()%>" type="text" id="last-name" name="lastname" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input value="<%=user.getPhone()%>" type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="old-password">Old Password</label>
+            <input type="password" id="old-password" name="old_password" required>
+        </div>
+        <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" name="new_password" required>
+        </div>
+        <div class="form-group">
+            <label for="repeat-password">Repeat New Password</label>
+            <input type="password" id="repeat-password" name="repeat_password" required>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn">Save Changes</button>
+            <a href="javascript:history.back()" class="btn btn-cancel">Cancel</a>
+        </div>
     </form>
 </div>
 </body>

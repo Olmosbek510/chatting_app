@@ -24,5 +24,6 @@ public class CancelRegistrationServlet extends HttpServlet {
             BaseRepo.commit();
             session.removeAttribute("currentFile");
         }
+        resp.sendRedirect("/index.jsp");
     }
 }

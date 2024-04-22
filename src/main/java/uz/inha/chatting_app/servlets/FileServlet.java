@@ -21,7 +21,7 @@ public class FileServlet extends HttpServlet {
     private final AttachmentContentRepo attachmentContentRepo = new AttachmentContentRepo();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected synchronized void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("id"));
         if (uuid != null) {
             AttachmentContent attachmentContent = BaseRepo.ENTITY_MANAGER.createQuery("select a from AttachmentContent a where a.attachment.id =: id", AttachmentContent.class).setParameter("id", uuid).getSingleResult();

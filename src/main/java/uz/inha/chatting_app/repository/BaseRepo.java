@@ -24,7 +24,7 @@ public class BaseRepo<T extends BaseEntity, ID> {
         this.persistenceClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
     public List<T> findAll(){
-        return ENTITY_MANAGER.createQuery("select from "+ persistenceClass.getSimpleName(),persistenceClass).getResultList();
+        return ENTITY_MANAGER.createQuery("from "+ persistenceClass.getSimpleName(), persistenceClass).getResultList();
     }
     public void save(T t){
         begin();
