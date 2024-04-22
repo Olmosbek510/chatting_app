@@ -1,9 +1,7 @@
 package uz.inha.chatting_app.repository;
 
-import org.w3c.dom.Entity;
 import uz.inha.chatting_app.entity.User;
 
-import java.util.List;
 import java.util.UUID;
 
 public class UserRepo extends BaseRepo<User, UUID>{

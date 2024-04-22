@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class MessageRepo extends BaseRepo<Message, UUID> {
-
     public static List<Message> findByUserFromUser(User user, User toUser) {
         begin();
         TypedQuery<Message> query = ENTITY_MANAGER.createQuery("from Message where fromUser.id =: fromId and toUser.id =: toId or fromUser.id =: toId and toUser.id =: fromId", Message.class);

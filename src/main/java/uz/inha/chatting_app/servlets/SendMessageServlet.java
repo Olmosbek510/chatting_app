@@ -26,8 +26,6 @@ public class SendMessageServlet extends HttpServlet {
         UUID toId = UUID.fromString(req.getParameter("toUser"));
         Optional<User> fromOpt = userRepo.findById(fromId);
         Optional<User> toOpt = userRepo.findById(toId);
-        System.out.println(fromOpt.get().getFirstName());
-        System.out.println(toOpt.get().getFirstName());
 
         Message message = new Message();
         message.setText(messageText);

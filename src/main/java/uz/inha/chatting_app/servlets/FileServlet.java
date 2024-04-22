@@ -23,10 +23,8 @@ public class FileServlet extends HttpServlet {
     @Override
     protected synchronized void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("id"));
-        if (uuid != null) {
-            AttachmentContent attachmentContent = BaseRepo.ENTITY_MANAGER.createQuery("select a from AttachmentContent a where a.attachment.id =: id", AttachmentContent.class).setParameter("id", uuid).getSingleResult();
-            resp.getOutputStream().write(attachmentContent.getContent());
-        }
+        AttachmentContent attachmentContent = BaseRepo.ENTITY_MANAGER.createQuery("select a from AttachmentContent a where a.attachment.id =: id", AttachmentContent.class).setParameter("id", uuid).getSingleResult();
+        resp.getOutputStream().write(attachmentContent.getContent());
     }
 
     @Override

@@ -65,10 +65,14 @@
     <h2>Login</h2>
     <form action="${pageContext.request.contextPath}/user/auth" method="post">
         <div class="form-group">
-            <input name="phone" type="tel" placeholder="Phone Number" required>
+            <label>
+                <input name="phone" type="tel" placeholder="Phone Number" required>
+            </label>
         </div>
         <div class="form-group">
-            <input name="password" type="password" placeholder="Password" required>
+            <label>
+                <input name="password" type="password" placeholder="Password" required>
+            </label>
         </div>
         <div class="form-group">
             <label>
