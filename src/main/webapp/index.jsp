@@ -42,6 +42,7 @@
             background-color: #ddd;
         }
     </style>
+    <title></title>
 </head>
 <body>
 <%
